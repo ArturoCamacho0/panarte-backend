@@ -19,7 +19,7 @@ class UserController extends Controller
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
-        $token = $user->createToken('auth_token')->accessToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'token' => $token,
@@ -34,9 +34,10 @@ class UserController extends Controller
 
     public function store(UserRequest $request): \Illuminate\Http\JsonResponse
     {
-        $request->merge(['password' => bcrypt($request['password'])]);
-
         $user = User::create($request->validated());
+
+        $user->password = bcrypt($user->password);
+        $user->save();
 
         return response()->json([
             'message' => 'User created successfully',
