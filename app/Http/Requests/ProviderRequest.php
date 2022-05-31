@@ -26,7 +26,8 @@ class ProviderRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email',
-            'direction_id' => 'required|integer'
+            'direction' => 'required',
+            'phone' => 'string'
         ];
     }
 }

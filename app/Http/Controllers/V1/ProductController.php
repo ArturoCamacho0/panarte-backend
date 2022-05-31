@@ -11,7 +11,8 @@ class ProductController extends Controller
 {
     public function index(): \Illuminate\Database\Eloquent\Collection
     {
-        return Product::all();
+        // Return te products with her category
+        return Product::with('category')->get();
     }
 
     public function store(ProductRequest $request): \Illuminate\Http\JsonResponse

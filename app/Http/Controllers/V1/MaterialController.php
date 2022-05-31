@@ -10,7 +10,7 @@ class MaterialController extends Controller
 {
     public function index(): \Illuminate\Database\Eloquent\Collection
     {
-        return Material::all();
+        return Material::with('provider', 'category')->get();
     }
 
     public function store(MaterialRequest $request): \Illuminate\Http\JsonResponse
